@@ -18,6 +18,7 @@ import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 import Content from './Content';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import axios from 'axios';
 const drawerWidth = 290;
 
 const openedMixin = (theme) => ({
@@ -86,21 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-// ***'Загрузка новостей'******************
-const goToNews = () => {
-    console.log('Загрузка новостей')
-    let url = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
-let req = new Request(url);
-fetch(req)
-    .then(function(response) {
-       response.json()
-       .then(function (data) {
-        console.log(data);
-       })
-       
-    })
 
-}
 // ***'Загрузка Погоды'******************
 const goToWeather = () => {
     console.log('Загрузка Погоды')
@@ -108,6 +95,7 @@ const goToWeather = () => {
 }
 
 export default function MiniDrawer() {
+    const [news, Setnews] = React.useState(null)
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -118,7 +106,14 @@ export default function MiniDrawer() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+// ***'Загрузка новостей'******************
 
+const goToNews = async () => {
+    const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
+    const responce = await axios.get(newsURL)
+    Setnews(responce.data)
+    console.log(news)
+}
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -138,7 +133,7 @@ export default function MiniDrawer() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Новостной портал 1.0 by AdekWHATT
+                        Новости / Погода
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -167,11 +162,12 @@ export default function MiniDrawer() {
                     </ListItem>
                 </List>
                 <Divider />
-               
+
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                <Content />
+                {/* Отображение контента */}
+
             </Box>
         </Box>
     );

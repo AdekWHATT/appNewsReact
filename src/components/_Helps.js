@@ -8,3 +8,22 @@
   </ListItem>
 ))}
 </List>
+
+
+
+
+// Загрузка Новостей старый код
+const goToNews = () => {
+  console.log('Загрузка новостей')
+  let url = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
+  let req = new Request(url);
+  fetch(req)
+      .then(function (response) {
+          response.json()
+              .then(function (data) {
+                  console.log(data);
+              })
+
+      })
+
+}
