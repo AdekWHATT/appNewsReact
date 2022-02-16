@@ -19,6 +19,8 @@ import Content from './Content';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import axios from 'axios';
+import { listItemButtonClasses } from '@mui/material';
+import { HdrOffSelect } from '@mui/icons-material';
 const drawerWidth = 290;
 
 const openedMixin = (theme) => ({
@@ -111,10 +113,11 @@ export default function MiniDrawer() {
 const goToNews = async () => {
     const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
     const responce = await axios.get(newsURL)
-    Setnews(responce.data)
-    console.log(news)
+    
+    Setnews(responce.data.articles)
+    
+   
 }
-
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -166,8 +169,28 @@ const goToNews = async () => {
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                {/* Отображение контента */}
+                <div className="news">
+                    {console.log(news)}
+                    {news &&
+                    news.map(item => {
+                        const name = item.source.name
+                        const title = item.title
+                        const author = item.author
+                        const url = item.url
+                        const publishedAt = item.publishedAt
+                        return (
+                            <div>
+                                <p>Источник: {name}</p>
+                                <p>Автор: {author}</p>
+                            <h4>{title}</h4>
+                            <p>Размещено: {publishedAt}</p>
+                            </div>
+                        )
+                    })
 
+
+                    }
+      </div>
             </Box>
         </Box>
     );
