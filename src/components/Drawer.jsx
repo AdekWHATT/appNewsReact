@@ -113,7 +113,7 @@ export default function MiniDrawer() {
 const goToNews = async () => {
     const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
     const responce = await axios.get(newsURL)
-    
+      
     Setnews(responce.data.articles)
     
    
