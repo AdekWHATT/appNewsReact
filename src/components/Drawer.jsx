@@ -15,12 +15,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
-import Content from './Content';
+import NewsCard from './NewsCard/NewsCard';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import axios from 'axios';
-import { listItemButtonClasses } from '@mui/material';
-import { HdrOffSelect } from '@mui/icons-material';
+
+
 const drawerWidth = 290;
 
 const openedMixin = (theme) => ({
@@ -108,16 +108,12 @@ export default function MiniDrawer() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-// ***'Загрузка новостей'******************
-
-const goToNews = async () => {
-    const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
-    const responce = await axios.get(newsURL)
-      
-    Setnews(responce.data.articles)
-    
-   
-}
+    // ***'Загрузка новостей'******************
+    const goToNews = async () => {
+        const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
+        const responce = await axios.get(newsURL)
+        Setnews(responce.data.articles)
+    }
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -136,7 +132,7 @@ const goToNews = async () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Новости / Погода
+                        ТолькоНовости
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -165,32 +161,29 @@ const goToNews = async () => {
                     </ListItem>
                 </List>
                 <Divider />
-
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                <div className="news">
-                    {console.log(news)}
-                    {news &&
-                    news.map(item => {
-                        const name = item.source.name
-                        const title = item.title
-                        const author = item.author
-                        const url = item.url
-                        const publishedAt = item.publishedAt
-                        return (
-                            <div>
-                                <p>Источник: {name}</p>
-                                <p>Автор: {author}</p>
-                            <h4>{title}</h4>
-                            <p>Размещено: {publishedAt}</p>
-                            </div>
-                        )
-                    })
 
+                {news &&
+                    news.map(item => (
+                        <>
+                            <NewsCard
+                                name={item.source.name}
+                                urlToImage={item.urlToImage}
+                                author={item.author}
+                                title={item.title}
+                                description={item.description}
+                                url={item.url}
+                                publishedAt={item.publishedAt}
+                            />
+                            <br />
+                        </>
+                    )
 
-                    }
-      </div>
+                    )
+                }
+
             </Box>
         </Box>
     );

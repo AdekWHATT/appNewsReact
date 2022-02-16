@@ -27,3 +27,32 @@ const goToNews = () => {
       })
 
 }
+
+
+
+
+
+
+
+//  <div className="news">
+//                     {console.log(news)}
+//                     {news &&
+//                         news.map(item => {
+//                             const name = item.source.name
+//                             const title = item.title
+//                             const author = item.author
+//                             const url = item.url
+//                             const publishedAt = item.publishedAt
+//                             return (
+//                                 <div>
+//                                     <p>Источник: {name}</p>
+//                                     <p>Автор: {author}</p>
+//                                     <h4>{title}</h4>
+//                                     <p>Размещено: {publishedAt}</p>
+//                                 </div>
+//                             )
+//                         })
+
+
+//                     }
+//                 </div>
