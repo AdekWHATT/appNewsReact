@@ -16,8 +16,10 @@ import ListItemText from '@mui/material/ListItemText';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 import NewsCard from './NewsCard/NewsCard';
-import RssFeedIcon from '@mui/icons-material/RssFeed';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import axios from 'axios';
 
 
@@ -101,6 +103,8 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
+    const [catRu, setCatRu] = React.useState('');
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -109,11 +113,22 @@ export default function MiniDrawer() {
         setOpen(false);
     };
     // ***'Загрузка новостей'******************
-    const goToNews = async () => {
-        const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=a63ddc24567546db8b9c3141919af3ee`;
+    const goToNewsBus = async () => {
+        const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=${'business'}&apiKey=a63ddc24567546db8b9c3141919af3ee`;
         const responce = await axios.get(newsURL)
         Setnews(responce.data.articles)
     }
+    const goToNewsSport = async () => {
+        const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=${'sport'}&apiKey=a63ddc24567546db8b9c3141919af3ee`;
+        const responce = await axios.get(newsURL)
+        Setnews(responce.data.articles)
+    }
+    const goToNewsTeh = async () => {
+        const newsURL = `https://newsapi.org/v2/top-headlines?country=ru&category=${'technology'}&apiKey=a63ddc24567546db8b9c3141919af3ee`;
+        const responce = await axios.get(newsURL)
+        Setnews(responce.data.articles)
+    }
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -132,7 +147,7 @@ export default function MiniDrawer() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        ТолькоНовости
+                        Новости
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -143,28 +158,45 @@ export default function MiniDrawer() {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List onClick={goToNews}>
+                <List onClick={goToNewsBus}>
                     <ListItem button>
                         <ListItemIcon>
-                            <RssFeedIcon />
+                            <AttachMoneyIcon />
                         </ListItemIcon>
-                        <ListItemText>Новости</ListItemText>
+                        <ListItemText>Новости бизнеса</ListItemText>
+                    </ListItem>
+                    <Divider />
+                </List>
+                <List onClick={goToNewsSport}>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <SportsBasketballIcon />
+                        </ListItemIcon>
+                        <ListItemText>Новости Спорта</ListItemText>
                     </ListItem>
                 </List>
                 <Divider />
-                <List onClick={goToWeather}>
+                <List onClick={goToNewsTeh}>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <PsychologyIcon />
+                        </ListItemIcon>
+                        <ListItemText>Новости Технологий</ListItemText>
+                    </ListItem>
+                </List>
+                <Divider />
+                {/* <List onClick={goToWeather}>
                     <ListItem button>
                         <ListItemIcon>
                             <WbSunnyIcon />
                         </ListItemIcon>
                         <ListItemText>Погода</ListItemText>
                     </ListItem>
-                </List>
+                </List> */}
                 <Divider />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-
                 {news &&
                     news.map(item => (
                         <>
