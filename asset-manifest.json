@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/appNewsReact/static/css/main.31d6cfe0.css",
+    "main.js": "/appNewsReact/static/js/main.313c3452.js",
+    "index.html": "/appNewsReact/index.html",
+    "main.313c3452.js.map": "/appNewsReact/static/js/main.313c3452.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.313c3452.js"
+  ]
+}
